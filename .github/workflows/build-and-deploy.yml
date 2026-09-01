@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - master
+      - main
   # Lets you trigger a deploy manually from the Actions tab on Github
   workflow_dispatch:
 
