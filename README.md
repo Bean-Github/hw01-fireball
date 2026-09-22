@@ -1,3 +1,9 @@
+# details
+![alt text](image.png)
+
+added bloom and made a candle thingy
+
+
 # HW 1: WebGL Fireball
 
 <p align="center">
