@@ -2,6 +2,7 @@
 ![alt text](image.png)
 
 added bloom and made a candle, also added gui to edit the candle colors and bloom amount
+https://bean-github.github.io/hw01-fireball/
 
 
 # HW 1: WebGL Fireball
