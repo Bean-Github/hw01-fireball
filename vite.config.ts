@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
- 
+
 export default defineConfig({
   // Some older CommonJS packages (e.g. 3d-view-controls, stats-js) reference
   // Node's `global` object. Webpack used to polyfill this automatically;
@@ -19,4 +19,4 @@ export default defineConfig({
     emptyOutDir: true,
   },
 });
- 
+

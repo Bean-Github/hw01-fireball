@@ -11,7 +11,8 @@
   "devDependencies": {
     "@types/dat.gui": "^0.7.13",
     "typescript": "^5.7.2",
-    "vite": "^8.0.0"
+    "vite": "^8.0.0",
+    "vite-plugin-glsl": "^1.6.1"
   },
   "dependencies": {
     "3d-view-controls": "^2.2.2",
