@@ -103,6 +103,29 @@ class ShaderProgram {
     }
   }
 
+  setFragColors(
+    dim: vec3, blue: vec3, shimmerBase: vec3, shimmerTop: vec3,
+    bright1: vec3, bright2: vec3, top: vec3
+  ) {
+    this.use();
+
+    // Helper function to set uniforms safely
+    const setVec3 = (name: string, val: vec3) => {
+      const loc = gl.getUniformLocation(this.prog, name);
+      if (loc !== null) {
+        gl.uniform3fv(loc, val);
+      }
+    };
+
+    setVec3("u_DimColor", dim);
+    setVec3("u_BlueColor", blue);
+    setVec3("u_ShimmerColorBase", shimmerBase);
+    setVec3("u_ShimmerColorTop", shimmerTop);
+    setVec3("u_BrightColor1", bright1);
+    setVec3("u_BrightColor2", bright2);
+    setVec3("u_TopColor", top);
+  }
+
   draw(d: Drawable) {
     this.use();
 

@@ -65,12 +65,12 @@ void main() {
     float distToBase = length(vec3(fs_Pos.x, 0.0f, fs_Pos.z));
 
     // DIM
-    vec3 dimColor = vec3(0.98f, 0.04f, 0.04f) * 5.0f;
+    vec3 dimColor = u_DimColor * 5.0f;
 
     // BLUE
-    vec3 blueColor = vec3(0.04f, 0.19f, 0.67f);
+    vec3 blueColor = u_BlueColor;
 
-    float blueColorRange = 0.1f;
+    float blueColorRange = 0.2f;
     float blueColorSmoothness = 0.3f;
 
     float blueColorFactor = smoothstep(blueColorRange, blueColorRange + blueColorSmoothness, yPos);
@@ -100,19 +100,19 @@ void main() {
     blackColorFactor = max(blackColorFactor, superBlackFactor); // Combine the two factors to get the final black factor
 
     // SHIMMER
-    vec3 shimmerColorBase = vec3(0.03f, 0.31f, 0.96f) * 2.0f;
-    vec3 shimmerColorTop = vec3(1.0f, 0.18f, 0.18f) * 2.0f;
+    vec3 shimmerColorBase = u_ShimmerColorBase * 2.0f;
+    vec3 shimmerColorTop = u_ShimmerColorTop * 2.0f;
     vec3 shimmerColor = lerp(shimmerColorBase, shimmerColorTop, bias(yPos, 0.8f));
     float shimmerColorFactor = 0.0f;
     shimmerColorFactor += fresnel(3.0f); // Add a Fresnel effect to the shimmer factor
     shimmerColorFactor = clamp(shimmerColorFactor, 0.0f, 1.0f);
 
-    // BRIGHTNESS
+// BRIGHTNESS
     float brightNoise = genericFBM(vec3(fs_Pos.x, fs_Pos.y, fs_Time * 100.0f));
     brightNoise = bias(brightNoise, 0.6f);
 
-    vec3 brightColor1 = vec3(1.0f, 0.74f, 0.54f) * 6.0f;
-    vec3 brightColor2 = vec3(1.0f, 0.2f, 0.0f) * 6.0f;
+    vec3 brightColor1 = u_BrightColor1 * 6.0f;
+    vec3 brightColor2 = u_BrightColor2 * 6.0f;
 
     vec3 brightColor = lerp(brightColor1, brightColor2, fresnel(0.2f));
 
@@ -128,7 +128,7 @@ void main() {
     // brightColorFactor = clamp(brightColorFactor, 0.0f, 1.0f);
 
     // TOP COLOR
-    vec3 topColor = vec3(1.0f, 0.0f, 0.0f) * 10.0f;
+    vec3 topColor = u_TopColor * 10.0f;
     float topColorRange = 0.7f;
     float topColorSmoothness = 0.6f;
     float topColorFactor = smoothstep(topColorRange, topColorRange + topColorSmoothness, yPos);
@@ -137,7 +137,7 @@ void main() {
     // FADE
     vec3 fade1 = black;
     vec3 fade2 = vec3(2.0f, 2.0f, 2.0f);
-    vec3 fade = lerp(fade1, fade2, smoothstep(0.0f, 0.1f, yPos));
+    vec3 fade = lerp(fade1, black, smoothstep(0.0f, 0.1f, yPos));
 
     // make range round, so higher y values are more likely to be black
     float fadeColorRange = (0.0f + sin(fs_Time) * 0.05f);
@@ -155,7 +155,7 @@ void main() {
     finalColor = lerp(finalColor, shimmerColor, shimmerColorFactor);
 
     // add black
-    finalColor = lerp(finalColor, fade, fadeColorFactor);
+    //finalColor = lerp(finalColor, fade, fadeColorFactor);
 
     finalColor = lerp(finalColor, black, blackColorFactor);
 
