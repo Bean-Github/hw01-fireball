@@ -22,6 +22,8 @@ const defaultColors = {
   topColor: [255, 0, 0]            // 1.0, 0.0, 0.0
 };
 
+let gui: DAT.GUI;
+
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
